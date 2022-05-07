@@ -36,3 +36,21 @@
   }
 
 
+  .profileconntent{
+    display: flex;
+    justify-content: space-around;
+    margin: 18px 0px;
+    border-bottom: 1px solid grey;
+  }
+
+  .gallery{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.item{
+    width: 30%;
+    margin-top: 10px;
+}
+
