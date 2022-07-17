@@ -25,9 +25,9 @@ function Prof() {
 
 
       <div className='gallery'>
-        <img className='item' src='https://pbs.twimg.com/media/ElkJbo3XEAEPhZN.jpg' alt='gallerypic'/>
+        {/* <img className='item' src='https://pbs.twimg.com/media/ElkJbo3XEAEPhZN.jpg' alt='gallerypic'/> */}
         <img className='item' src='https://i.pinimg.com/736x/0e/b2/f3/0eb2f3eafcbe9d88c002d5ec8453b584.jpg' alt='gallerypic'/>
-        <img className='item' src='https://pbs.twimg.com/media/FLj7TJTXEAcqL4y.jpg' alt='gallerypic'/>
+        {/* <img className='item' src='https://pbs.twimg.com/media/FLj7TJTXEAcqL4y.jpg' alt='gallerypic'/> */}
         <img className='item' src='https://i.pinimg.com/originals/30/8e/6c/308e6c49c3ba30a750349da1ed4758aa.jpg' alt='gallerypic'/>
         <img className='item' src='https://wallpapercave.com/wp/wp5860875.jpg' alt='gallerypic'/>
         <img className='item' src='https://w0.peakpx.com/wallpaper/149/317/HD-wallpaper-islamic-hijab-girl-girl-hijab-pic-islamic-girl-islamic-pic-niqab-girl-thumbnail.jpg' alt='gallerypic'/>
