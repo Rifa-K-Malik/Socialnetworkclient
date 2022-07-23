@@ -10,8 +10,16 @@ function Signup() {
   const [name,setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+
+
+
   //creating network request
   const PostData=()=>{
+    if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
+      M.toast({html: 'Invalid Email', classes:"#b71c1c red darken-4"})
+      return;
+    }
     fetch("/signup",{
       method: "post",
       headers: {
