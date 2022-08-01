@@ -1,3 +1,4 @@
+//PATH [] = client/src/components/Signin.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -8,35 +9,35 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-    //creating network request
-    const PostData=()=>{
-      if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
-        M.toast({html: 'Invalid Email', classes:"#b71c1c red darken-4"})
-        return;
-      }
-      fetch("/signin",{
-        method: "post",
-        headers: {
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-          password,
-          email
-        })
-      }).then(res=>res.json())
-      .then(data=>{ 
-        if(data.error){
-          M.toast({html: data.error, classes:"#b71c1c red darken-4"})
-        }
-        else{
-          M.toast({html: 'Signed in Successfully', classes:"#43a047 green darken-1"})
-          navigate('/signin')
-        }
-      }).catch(err=>{
-        console.log(err)
-      })
+ 
+  //creating network request
+  const PostData=()=>{//eslint-disable-next-line
+    if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
+      M.toast({html: "Invalid Email Id", classes:"#b71c1c red darken-4"});
+      return;
     }
+      fetch("/signin",{
+      method: "post",
+      headers: {
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        password,
+        email
+      })
+    }).then(res=>res.json())
+    .then(data=>{ 
+      if(data.error){
+        M.toast({html: data.error, classes:"#b71c1c red darken-4"})
+      }
+      else{
+        M.toast({html:data.message, classes:"#43a047 green darken-1"})
+        navigate('/')
+      }
+    }).catch(err=>{
+      console.log(err)
+    })
+  }
 
   return (
     <div className='login'>
