@@ -27,11 +27,12 @@ function Login() {
       })
     }).then(res=>res.json())
     .then(data=>{ 
+      console.log(data)
       if(data.error){
         M.toast({html: data.error, classes:"#b71c1c red darken-4"})
       }
       else{
-        M.toast({html:data.message, classes:"#43a047 green darken-1"})
+        M.toast({html: 'Successfully Logged In', classes:"#43a047 green darken-1"})
         navigate('/')
       }
     }).catch(err=>{
