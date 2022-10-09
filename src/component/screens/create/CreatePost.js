@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import M from 'materialize-css';
-import {useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function CreatePost() {
-    const [title,setTitle] = useState("");
-    const [body,setBody] = useState("");
-    const [image,setImage] = useState("");
-    const [url,setUrl] = useState("");
+    const [title, setTitle] = useState("");
+    const [body, setBody] = useState("");
+    const [image, setImage] = useState("");
+    const [url, setUrl] = useState("");
     const navigate = useNavigate();
 
     useEffect(()=>{
         if(url){
-          fetch("/createpost",{
+          fetch('/createpost',{
               method:"post",
               headers: {
-                  "Content-Type":"application/json",
-                  "Authorization": "Bearer "+localStorage.getItem("jwt")
+                  "Content-Type": "application/json",
+                  "Authorization": "Bearer " + localStorage.getItem("jwt")
               },
               body:JSON.stringify({
                   title:title,
@@ -25,45 +25,61 @@ function CreatePost() {
           }).then(res=>res.json)
           .then(data=>{ 
               if(data.error){
-                M.toast({html: data.error, classes:"#b71c1c red darken-4"});
+                // console.log("data.error:"+data)
+                M.toast({html: "Not Posted", classes:"#b71c1c red darken-4"});
               }
               else{
-                M.toast({html:"Post Created Successully", classes:"#43a047 green darken-1"});
+                console.log("data:"+data)
+                M.toast({html: "Posted", classes:"#43a047 green darken-1"});
                 navigate("/");
               }
             }).catch(err=>{
               console.log(err)
             })
-      }
-    },[body, navigate, title, url])
+     }
+    },[title,body,navigate,url])
 
-    const postDetails = () => {
+
+    const postDetails= ()=>{
         const data = new FormData();
-        data.append("file", image);
-        data.append("upload_preset", "rifinstasite")
-        // data.append("cloud_name", "rifinstacloud")
-
-        fetch("https://api.cloudinary.com/v1_1/rifinstacloud/image/upload/", {
-            method:"post",
-        body:data })
+        data.append("file",image);
+        data.append("upload_preset","rifinstasite");
+        
+        fetch("https://api.cloudinary.com/v1_1/rifinstacloud/image/upload/",{
+        method:"post",
+        body:data 
+        })
         .then(res=>res.json())
         .then(data=>{
-             console.log(data);
+            //  console.log(data);
              setUrl(data.url);
         })
         .catch(err=>{
-            console.log(err);
+            console.log(data);
         })
     }
 
     return (
         <div className='card input-field' style={{ margin: "30px auto", maxWidth: "500px", padding: "20px", textAlign: "center" }}>
-            <input type="text" placeholder='title' value={title} onChange={(e) => setTitle(e.target.value)} />
-            <input type="text" placeholder='body' value={body} onChange={(e) => setBody(e.target.value)} />
+            <input
+                type="text"
+                placeholder='title'
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+            />
+            <input
+                type="text"
+                placeholder='body'
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+            />
             <div className="file-field input-field">
                 <div className="btn upload">
                     <span className=''>SELECT IMAGE</span>
-                    <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+                    <input
+                        type="file"
+                        onChange={(e) => setImage(e.target.files[0])}
+                    />
                 </div>
                 <div className="file-path-wrapper">
                     <input className="file-path validate" type="text" />

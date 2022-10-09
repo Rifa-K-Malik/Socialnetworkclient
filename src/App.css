@@ -68,3 +68,11 @@
     display: flex;
     justify-content: center;
 }
+
+.signout{
+    color: white;
+}
+
+.likeunlike{
+    cursor: pointer;
+}

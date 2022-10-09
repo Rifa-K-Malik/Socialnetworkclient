@@ -7,7 +7,7 @@
   import M from 'materialize-css';
 
   function Login() {
-    const { state, dispatch } = useContext(UserContext)
+    const { state, dispatch } = useContext(UserContext);
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -52,11 +52,10 @@
         <input id="email" type="email" placeholder='email' value={email} onChange={(e) => setEmail(e.target.value)} />
         <input id="password" type="password" placeholder='password' value={password} onChange={(e) => setPassword(e.target.value)} />
         <button className="btn waves-effect waves-light loginbtnn" type="submit" name="action" onClick={()=>PostData()}>SignIn</button>
-        <h6>Don't Have an Account? <Link to ="/signin"><span className='span-udline'>SIGNUP</span></Link></h6>
+        <h6>Don't Have an Account? <Link to ="/signup"><span className='span-udline'>SIGNUP</span></Link></h6>
       </div>
     </div>
   )
 }
-
 
 export default Login
