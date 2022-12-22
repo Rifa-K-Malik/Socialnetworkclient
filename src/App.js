@@ -7,6 +7,7 @@ import Login from './component/screens/Login/Login';
 import Prof from './component/screens/Pro/Prof';
 import CreatePost from './component/screens/create/CreatePost';
 import H from './component/screens/home/H';
+import UserProfile from './component/screens/UserProfile';
 import { initialState, reducer } from './reducer/userReducer';
 
 export const UserContext = createContext();
@@ -29,7 +30,8 @@ const Routing = () => {
       <Route path="/" element={<H />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/signin" element={<Login />} />
-      <Route path="/profile" element={<Prof />} />
+      <Route exact path="/profile" element={<Prof />} />
+      <Route path="/profile/:userid" element={<UserProfile />} />
       <Route path="/create" element={<CreatePost />} />
     </Routes>
   )

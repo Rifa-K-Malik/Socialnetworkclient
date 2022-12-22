@@ -31,7 +31,7 @@ function Navbar() {
     return (
         <div>
             <nav>
-                <div className='nav-wrapper grey'>
+                <div className='nav-wrapper grey m10'>
                     <Link to="/" className='brand-logo left'>SocialNetwork</Link>
                     <ul id="nav-mobile" className='right'>
                         {renderList()}

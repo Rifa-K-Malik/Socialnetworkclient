@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from '../../../App.js';
+import M from 'materialize-css';
 
 function H() {
   const [data, setData] = useState([]);
@@ -68,13 +69,71 @@ function H() {
         console.log(err);
       });
   };
+  const makeComment = (text, postId) => {
+    fetch("/comment", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        postId,
+        text
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        const newData = data.map(item => {
+          if (item._id === result._id)
+            return result;
+          else
+            return item
+        });
+        setData(newData)
+      }).catch(err => {
+        console.log(err);
+      });
+  };
+
+  const deletePost = (postid) => {
+    fetch(`/deletepost/${postid}`, {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then(data => {
+        if (data.message) {
+          M.toast({ html: data.message, classes: "#b71c1c red darken-4" })
+        }
+      })
+      .then((result) => {
+        console.log(result);
+        const newData = data.filter(item => {
+          return item._id !== result._id
+        })
+        setData(newData)
+      });
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
+  };
 
   return (
     <div className="home">
       {data.map((item) => {
         return (
           <div className="card home-card">
-            <h5>{item.postedBy.name}</h5>
+            <h5>{item.postedBy.name}
+              {item.postedBy._id === state._id && <i className="material-icons" style={{ float: "right" }}
+                onClick={() => {
+                  deletePost(item._id)
+                }
+                }>delete</i>}
+            </h5>
             <div className="card-image">
               <img style={{ height: '300px', width: 'auto' }}
                 src={item.photo} alt="post-pic"
@@ -92,7 +151,21 @@ function H() {
               <h6>{item.likes.length}  likes</h6>
               <h6>{item.title}</h6>
               <p>{item.body}</p>
-              <input type="text" placeholder="add a comment" />
+              {item.comments.map((record) => {
+                return (
+                  <h6>
+                    <span style={{ fontWeight: "600" }}>{record.postedBy.name}</span>
+                    <span style={{ marginLeft: '5px' }}>{record.text}</span>
+                  </h6>
+                );
+              })}
+              <form onSubmit={(e) => {
+                e.preventDefault();
+                console.log(e.target[0].value, item._id)
+                makeComment(e.target[0].value, item._id)
+              }}>
+                <input type="text" placeholder="add a comment" />
+              </form>
             </div>
           </div>
         );
